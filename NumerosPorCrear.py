@@ -46,3 +46,33 @@ if len(nombres_fotos) == 0:
 
 print("ya validamos")
 print(f"Se utilizaran {len(nombres_fotos)} fotos")
+
+
+# ahora si abriremos las fotos que tengamos
+
+from PIL import Image
+
+imagenes = []
+
+for nombre in nombres_fotos:
+
+    ruta = os.path.join(CARPETA_FOTOS, nombre)
+
+    try:
+        # Abriremos la imagen y guardaremos una copia en memoria
+        imagen = Image.open(ruta)
+        imagen.load()
+        imagenes.append((nombre, imagen.copy()))
+
+        print(
+            f"la imagen abierta fue: {nombre} "
+            f"({imagen.width} x {imagen.height})"
+        )
+
+    except Exception as error:
+        print(f"No se pudo ver la imagen {nombre}: {error}")
+
+if len(imagenes) == 0:
+    raise ValueError("No se pudo abrir ninguna foto porque no existe")
+
+print(f"las fotos que fueron abiertas correctamente fueron {len(imagenes)}")
