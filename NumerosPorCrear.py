@@ -141,3 +141,17 @@ print(f"Numeros seleccionados: {len(datos):,}") #este lo puse solo para ver que 
 print(f"Valor minimo: {datos.min()}")
 print(f"Valor maximo: {datos.max()}")
 print(f"Valores distintos: {len(np.unique(datos)):,}")
+
+# ahora si los guardamos dentro de resultados 
+
+ruta_datos = os.path.join(
+    CARPETA_RESULTADOS,
+    "numeros_generados.txt"
+)
+
+# Guardamos un numero por linea
+np.savetxt(ruta_datos, datos, fmt="%d")
+
+print()
+print("Numeros guardados")
+print(f"para consultarlos puedes ver {ruta_datos}")
