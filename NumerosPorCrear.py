@@ -124,18 +124,29 @@ if len(pixeles_totales) < CANTIDAD:
 print("si tenemos suficientes pixeles para continuar.")
 print(f"tenemos disponibles: {len(pixeles_totales):,}")
 print(f"y necesitamos: {CANTIDAD:,}")
-# seleccionamos los numeros ya finales que tendremos
-# Elegir posiciones distribuidas a lo largo de todos los pixeles
-# Asi se utilizan zonas de todas las fotografias combinadas (mientras mas fotos mejor)
-posiciones = np.linspace(
+# seleccionamos los numeros ya finales que tendremos de manera aleatoria
+generador = np.random.default_rng()
+
+posiciones = generador.integers(
     0,
-    len(pixeles_totales) - 1,
-    CANTIDAD,
-    dtype=np.int64
+    len(pixeles_totales),
+    size=CANTIDAD
 )
 
-# Sacamos los valores de los pixeles que seleccionamos
-datos = pixeles_totales[posiciones].astype(np.int64)
+#obtenemos los valores
+pixeles_seleccionados = pixeles_totales[posiciones]
+
+# jalamos bytes random de nuestros sistema operativo
+aleatorios_sistema = np.frombuffer(
+    os.urandom(CANTIDAD),
+    dtype=np.uint8
+)
+
+# Combinamos los pixeles que tenemos de nuestras fotos con los bytes aleatorios
+datos = np.bitwise_xor(
+    pixeles_seleccionados,
+    aleatorios_sistema
+).astype(np.int64)
 
 print(f"Numeros seleccionados: {len(datos):,}") #este lo puse solo para ver que si agarrara los mismos que en cantidad
 print(f"Valor minimo: {datos.min()}")
