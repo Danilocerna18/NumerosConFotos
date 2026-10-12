@@ -94,3 +94,23 @@ print("Conversion a grises terminada")
 
 for nombre, imagen in imagenes_grises:
     print(f"{nombre}: modo {imagen.mode}") 
+
+# extraeremos nuestros pixeles 
+import numpy as np
+
+pixeles_fotos = []
+
+for nombre, imagen in imagenes_grises:
+
+    # Convertiremos la imagen en un arreglo 
+    pixeles = np.asarray(imagen, dtype=np.uint8).ravel()
+    pixeles_fotos.append(pixeles)
+
+    print(
+        f"{nombre}: {len(pixeles):,} pixeles obtenidos de las imagenes"
+    )
+# y los combinaremos
+
+pixeles_totales = np.concatenate(pixeles_fotos)
+print()
+print(f"el total de todos los pixeles de las fotos que tienes es de {len(pixeles_totales):,}") 
