@@ -76,3 +76,21 @@ if len(imagenes) == 0:
     raise ValueError("No se pudo abrir ninguna foto porque no existe")
 
 print(f"las fotos que fueron abiertas correctamente fueron {len(imagenes)}")
+
+
+# tenemos que convertirlo todo a grises 
+
+imagenes_grises = []
+
+for nombre, imagen in imagenes:
+
+    # Convertir cada imagen a un solo canal de intensidad
+    imagen_gris = imagen.convert("L")
+
+    imagenes_grises.append((nombre, imagen_gris))
+
+print()
+print("Conversion a grises terminada")
+
+for nombre, imagen in imagenes_grises:
+    print(f"{nombre}: modo {imagen.mode}") 
