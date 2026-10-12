@@ -36,3 +36,13 @@ for nombre in nombres_fotos:
 
 print(f"Total de fotos que tienes {len(nombres_fotos)}")
 
+
+#Antes de seguir vamos a validat siempre tener fotos ya que son claves
+
+if len(nombres_fotos) == 0:
+    raise ValueError(
+        "No tienes fotos, ponlas dentro de la carpeta llamada fotos"
+    )
+
+print("ya validamos")
+print(f"Se utilizaran {len(nombres_fotos)} fotos")
